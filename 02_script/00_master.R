@@ -10,6 +10,9 @@ project_dir <- here::here()
 
 ## Please adjust the data directory to your needs
 data_dir <- file.path(project_dir, "01_data")
+  data_raw_dir <- file.path(data_dir, "01_raw")
+  data_temp_dir <- file.path(data_dir, "02_temp")
+  data_posted_dir <- file.path(data_dir, "03_posted")
 
 script_dir <- file.path(project_dir, "02_script")
 graph_dir <- file.path(project_dir, "03_graph")
