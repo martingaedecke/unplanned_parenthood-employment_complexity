@@ -1,0 +1,93 @@
+package ‘datawizard’ successfully unpacked and MD5 sums checked
+package ‘sjlabelled’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\maddinjedekhe\AppData\Local\Temp\RtmpiMbHcL\downloaded_packages
+Variable: wave 
+Variable: sample 
+Variable: sex_gen 
+Variable: psex_gen 
+Variable: age 
+Variable: page 
+Variable: cohort 
+Variable: cob 
+Variable: pcob 
+Variable: mcob 
+Variable: fcob 
+Variable: migstatus 
+Variable: relstat 
+Variable: marstat 
+Variable: infertile 
+Variable: pregnant 
+Variable: nkids 
+Variable: frt3 
+Variable: frt5 
+Variable: frt7 
+Variable: k1type 
+Variable: k2type 
+Variable: k3type 
+
+  -10    -9    -8    -7    -6    -5     0     1     2     7     8    10 
+    2     1     2     9    23    76 27668  4244  2345     3     3     1 
+
+  -10    -9    -8    -7    -6    -5    -4    -3     1     2     3     4     5     6     7     8    10 
+   13     1     9    36   160   346    38    34 12915 16592  3466   573   108    46    21     6    13 
+
+  -10    -9    -8    -7    -6    -5     0     1     2     7     8    10 
+    2     1     2     9    23    76 27668  4244  2345     3     3     1 
+[1] 34377
+
+  -10    -9    -8    -7    -6    -5     0     1     2     7     8    10 
+    2     1     2     9    23    76 27668  4244  2345     3     3     1 
+
+  -10    -9    -8    -7    -6    -5    -4    -3     1     2     3     4     5     6     7     8    10 
+   13     1     9    36   160   346    38    34 12915 16592  3466   573   108    46    21     6    13 
+
+  -10    -9    -8    -7    -6    -5     0     1     2     7     8    10 
+    2     1     2     9    23    76 27668  4244  2345     3     3     1 
+
+  -10    -9    -8    -7    -6    -5    -4    -3     1     2     3     4     5     6     7     8    10 
+   13     1     9    36   160   346    38    34 12915 16592  3466   573   108    46    21     6    13 
+
+  -10    -9    -8    -7    -6    -5    -4    -3     1     2     3     4     5     6     7     8    10 
+   13     1     9    36   160   346    38    34 12915 16592  3466   573   108    46    21     6    13 
+
+  -10    -9    -8    -7    -6    -5     0     1     2     7     8    10 
+    2     1     2     9    23    76 27668  4244  2345     3     3     1 
+[1] 34377
+
+    0     1 
+24967  2184 
+
+  1   2   3   4   5   6   7 
+845 827 351 106  40  10   5 
+
+    0     1 
+24967  2184 
+package ‘BH’ successfully unpacked and MD5 sums checked
+package ‘anytime’ successfully unpacked and MD5 sums checked
+package ‘tsibble’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\maddinjedekhe\AppData\Local\Temp\RtmpiMbHcL\downloaded_packages
+
+  1   2   3   4   5   6   7 
+845 827 351 106  40  10   5 
+
+  1   2   3   4   5   6   7 
+845 827 351 106  40  10   5 
+
+    0     1 
+24967  2184 
+
+  1   2   3   4   5   6   7 
+845 827 351 106  40  10   5 
+
+    0     1 
+24967  2184 
+
+             planned             intended sooner-than-intended           unintended 
+                   0                    0                    0                    0 
+
+             planned             intended sooner-than-intended           unintended 
+                   0                    0                    0                    0 

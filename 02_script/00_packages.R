@@ -16,5 +16,5 @@ pacman::p_load(cNORM, haven, ggplot2, ggpubr, cluster, rio, plotrix,
                tidyverse, effects, margins, psych, devtools, foreign, 
                broom, nnet, descr, here, magrittr, TraMineR, TraMineRextras, 
                graphics, tidyverse, ggpubr, glue, ggseqplot, ggh4x, 
-               seqhandbook, patchwork, foreign, dplyr)
+               seqhandbook, patchwork, foreign, dplyr, sjlabelled, tidyr, tsibble)
 
