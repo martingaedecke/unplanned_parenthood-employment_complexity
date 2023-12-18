@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+
+# Ignore the "01_data" folder and its subfolders
+01_data/

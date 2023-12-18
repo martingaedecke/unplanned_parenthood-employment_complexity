@@ -8,7 +8,9 @@ setwd("C:/Users/maddinjedekhe/Documents/OneDrive - Nexus365/00_DPhil-Sociology/0
 
 project_dir <- here::here()
 
+## Please adjust the data directory to your needs
 data_dir <- file.path(project_dir, "01_data")
+
 script_dir <- file.path(project_dir, "02_script")
 graph_dir <- file.path(project_dir, "03_graph")
 table_dir <- file.path(project_dir, "04_table")
