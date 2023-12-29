@@ -7,6 +7,8 @@
 # Output: 02_pairfam1-14.Rds
 # ==============================================================================
 
+rm(list = ls())
+
 # Load data
 data_temp <- readRDS(file.path(data_temp_dir, "01_pairfam1-14.Rds"))
 
@@ -25,6 +27,13 @@ data_temp$d_chslw <- ifelse(data_temp$d_chslw %in% c(-4, -3, -2, -1),
                             ifelse(data_temp$d_chslw %in% c(2, 3, 4, 5, 6),
                                    2, # For cases like 'twins/triplets and more'
                                    data_temp$d_chslw))
+
+# Order the data by ID, wave and d_chslw
+data_temp %>% select(id, wave, d_chslw, everything())
+
+
+# Use select() to reorder the variables
+data_temp <- select(all_of(desired_order))
 
 # Sort the data frame by id, wave, and d_chslw
 data_temp <- data_temp[order(data_temp$id, data_temp$wave, data_temp$d_chslw), ]
