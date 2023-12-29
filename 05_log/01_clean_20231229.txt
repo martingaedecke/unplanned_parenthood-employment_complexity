@@ -1,0 +1,18 @@
+Error in install.packages : Updating loaded packages
+Error in install.packages : Updating loaded packages
+Warning in install.packages :
+  package ‘forcats’ is in use and will not be installed
+Error in install.packages : object 'forcats' not found
+       <int>
+1 planned                327
+2 intended               755
+3 sooner-than-intended   143
+4 unintended             128
+5 <NA>                 27963
+ [1] "id"             "sample"         "cohort"         "intmode_w12"    "intmode_w13"    "dob"           
+ [7] "sex"            "intdat"         "wave"           "number"         "cid"            "index"         
+[13] "dobk"           "surveykid"      "sexk"           "statusk"        "currliv"        "currliv_detail"
+[19] "pno"            "pid"            "parentid"       "parentidstepk"  "mid"            "fid"           
+[25] "smid"           "sfid"           "livkbeg"        "livkend"        "imp_livkbeg"    "imp_livkend"   
+[31] "b1livkbeg"      "b1livkend"      "livkbirth"      "dodk"           "flag_parentid"  "count"         
+[37] "counter"       
