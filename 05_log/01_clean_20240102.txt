@@ -1,0 +1,120 @@
+
+    0     1     2 
+81163  3707   192 
+
+   1    2    3    4    5    6    7    8    9   12 
+1591 1352  521  159   57   16    7    2    1    1 
+
+    0     1     2 
+21294  3707   192 
+# A tibble: 5 × 2
+  parenthood_status    total
+  <fct>                <int>
+1 planned                327
+2 intended               755
+3 sooner-than-intended   143
+4 unintended             128
+5 <NA>                 27963
+ [1] "id"             "sample"         "cohort"         "intmode_w12"    "intmode_w13"    "dob"           
+ [7] "sex"            "intdat"         "wave"           "number"         "cid"            "index"         
+[13] "dobk"           "surveykid"      "sexk"           "statusk"        "currliv"        "currliv_detail"
+[19] "pno"            "pid"            "parentid"       "parentidstepk"  "mid"            "fid"           
+[25] "smid"           "sfid"           "livkbeg"        "livkend"        "imp_livkbeg"    "imp_livkend"   
+[31] "b1livkbeg"      "b1livkend"      "livkbirth"      "dodk"           "flag_parentid"  "count"         
+[37] "counter"       
+[[1]]
+<warning/rlang_warning>
+Warning in `mutate()`:
+ℹ In argument: `double = ifelse(...)`.
+ℹ In group 1: `id = 2674000`.
+Caused by warning in `actend1 >= actbeg2 && actend2 >= actbeg1`:
+! 'length(x) = 8 > 1' in coercion to 'logical(1)'
+---
+Backtrace:
+    ▆
+ 1. ├─... %>% ungroup()
+ 2. ├─dplyr::ungroup(.)
+ 3. ├─dplyr::mutate(...)
+ 4. └─dplyr:::mutate.data.frame(...)
+
+[[2]]
+<warning/rlang_warning>
+Warning in `mutate()`:
+ℹ In argument: `double = ifelse(...)`.
+ℹ In group 1: `id = 2674000`.
+Caused by warning in `actend1 >= actbeg2 && actend2 >= actbeg1`:
+! 'length(x) = 8 > 1' in coercion to 'logical(1)'
+---
+Backtrace:
+    ▆
+ 1. ├─... %>% ungroup()
+ 2. ├─dplyr::ungroup(.)
+ 3. ├─dplyr::mutate(...)
+ 4. └─dplyr:::mutate.data.frame(...)
+
+[[3]]
+<warning/rlang_warning>
+Warning in `mutate()`:
+ℹ In argument: `double = ifelse(...)`.
+ℹ In group 1: `id = 2674000`.
+Caused by warning in `actend1 >= actbeg2 && actend2 >= actbeg1`:
+! 'length(x) = 7 > 1' in coercion to 'logical(1)'
+---
+Backtrace:
+    ▆
+ 1. ├─... %>% ungroup()
+ 2. ├─dplyr::ungroup(.)
+ 3. ├─dplyr::mutate(...)
+ 4. └─dplyr:::mutate.data.frame(...)
+
+[[4]]
+<warning/rlang_warning>
+Warning in `mutate()`:
+ℹ In argument: `double = ifelse(...)`.
+ℹ In group 1: `id = 2674000`.
+Caused by warning in `actend1 >= actbeg2 && actend2 >= actbeg1`:
+! 'length(x) = 7 > 1' in coercion to 'logical(1)'
+---
+Backtrace:
+    ▆
+ 1. ├─... %>% ungroup()
+ 2. ├─dplyr::ungroup(.)
+ 3. ├─dplyr::mutate(...)
+ 4. └─dplyr:::mutate.data.frame(...)
+
+[[5]]
+<warning/rlang_warning>
+Warning in `mutate()`:
+ℹ In argument: `double = ifelse(...)`.
+ℹ In group 1: `id = 2674000`.
+Caused by warning in `actend1 >= actbeg2 && actend2 >= actbeg1`:
+! 'length(x) = 6 > 1' in coercion to 'logical(1)'
+---
+Backtrace:
+    ▆
+ 1. ├─... %>% ungroup()
+ 2. ├─dplyr::ungroup(.)
+ 3. ├─dplyr::mutate(...)
+ 4. └─dplyr:::mutate.data.frame(...)
+
+# A tibble: 303 × 7
+         id activity                 actspell actbeg    actend    actcensor                             double
+      <dbl> <chr>                       <dbl> <dbl+lbl> <dbl+lbl> <dbl+lbl>                             <lgl> 
+ 1 38791000 education                       1 1305      1345      0 [0 Uncensored]                      FALSE 
+ 2 38791000 not employed                    1 1346      1351      0 [0 Uncensored]                      FALSE 
+ 3 38791000 education                       1 1352      1387      0 [0 Uncensored]                      FALSE 
+ 4 38791000 full-time                       1 1388      1440      0 [0 Uncensored]                      FALSE 
+ 5 38791000 parental leave/childcare        1 1441      1450      3 [3 Right-censored, ongoing episode] FALSE 
+ 6 39600000 education                       1 1306      1314      1 [1 Left-censored]                   FALSE 
+ 7 39600000 education                       1 1315      1360      0 [0 Uncensored]                      FALSE 
+ 8 39600000 full-time                       1 1361      1439      0 [0 Uncensored]                      FALSE 
+ 9 39600000 parental leave/childcare        1 1440      1452      3 [3 Right-censored, ongoing episode] FALSE 
+10 79929000 part-time                       1 1310      1326      1 [1 Left-censored]                   FALSE 
+# ℹ 293 more rows
+# ℹ Use `print(n = ...)` to see more rows
+[1] "education"                 "full-time"                 "part-time"                 "parental leave/childcare" 
+[5] "not employed"              "military/civilian service" "unemployed"                "self-employed"            
+[9] "marginal employed"        
+[1] "education"                 "full-time"                 "part-time"                 "parental leave/childcare" 
+[5] "not employed"              "military/civilian service" "unemployed"                "self-employed"            
+[9] "marginal employed"        

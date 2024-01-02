@@ -251,7 +251,7 @@ filtered_data_temp <- merged_data %>%
   filter(!is.na(id) & !is.na(wave) & !is.na(parenthood_status) & !is.na(dobk))
 
 # Select only the specified variables
-selected_data_temp <- filtered_data_temp[c("id", "wave", "parenthood_status", "dobk")]
+selected_data_temp <- filtered_data_temp[c("id", "wave", "parenthood_status", "dobk", "childno")]
 
 # Save cleaned data
 saveRDS(selected_data_temp, file.path(data_temp_dir, "03_pairfam1-14_phstatusdobk.Rds"))
