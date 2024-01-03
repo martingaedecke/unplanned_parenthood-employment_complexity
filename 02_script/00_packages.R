@@ -2,6 +2,7 @@
 ### Clear environment
 
 # use (and install if necessary) pacman package 
+# install.packages("pacman")
 library(pacman)
 
 # Nach Updates für Pakete schauen

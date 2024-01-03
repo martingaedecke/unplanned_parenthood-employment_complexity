@@ -6,6 +6,7 @@ setwd("C:/Users/maddinjedekhe/Documents/OneDrive - Nexus365/00_DPhil-Sociology/0
 ### Folder setup
 #source('00_projectsetup.R')
 
+# install.packages("here")
 project_dir <- here::here()
 
 ## Please adjust the data directory to your needs
