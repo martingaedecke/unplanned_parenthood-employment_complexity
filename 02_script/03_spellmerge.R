@@ -301,8 +301,9 @@ seq_list <- list()
 # Loop through each data frame in the list
 for (i in seq_along(bioact_seq_list)) {
   # Assuming you want to use columns 6 through the last column for sequence definition
-  seq_list[[i]] <- seqdef(bioact_seq_list[[i]], 6:ncol(bioact_seq_list[[i]]))
-
+  seq_list[[i]] <- seqdef(bioact_seq_list[[i]], 6:ncol(bioact_seq_list[[i]]), with.missing=NA,
+                         void="%")
+  
   assign(paste0("seq_", i), seq_list[[i]], envir = .GlobalEnv)
 }
 
