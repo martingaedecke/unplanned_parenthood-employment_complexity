@@ -16,10 +16,11 @@ dir_variables <- grep("_dir$", all_variables, value = TRUE)
 # Remove variables that don't have the "_dir" suffix
 rm(list = setdiff(all_variables, dir_variables))
 
-## Load data from bioact, bioact_rtr and biochild
+## Load data from bioact, bioact_rtr and biochild, also demograhic data (pairfam 1-14)
 bioact <- read_dta(file.path(data_raw_dir, file = "bioact.dta"))
 bioact_rtr <- read_dta(file.path(data_raw_dir, file = "bioact_rtr.dta"))
 biochild <- read_rds(file.path(data_temp_dir, file="03_pairfam1-14_phstatusdobk.Rds"))
+demogdata <- read_rds(file.path(data_temp_dir, file="01_pairfam1-14.Rds"))
 
 # Calculate the maximum value across columns intdatw1, intdatw2, ..., intdatw?
 bioact$lastintdat <- apply(bioact[, grep("intdatw", names(bioact))], 1, max, na.rm = TRUE)
@@ -174,5 +175,17 @@ bioact_seq_3 <- left_join(bioact_seq_3, filtered_df_3[c("id", "dobk", "parenthoo
 bioact_seq_1 <- relocate(bioact_seq_1, "dobk", "parenthood_status", .after = id)
 bioact_seq_2 <- relocate(bioact_seq_2, "dobk", "parenthood_status", .after = id)
 bioact_seq_3 <- relocate(bioact_seq_3, "dobk", "parenthood_status", .after = id)
+
+## Merge more person information
+variable_list <- c("id","sex_gen", "doby_gen", "dobm_gen", "cohort")
+
+sessionInfo()
+
+bioact_seq_1 <- left_join(bioact_seq_1, demogdata[variable_list], by = "id", 
+                          multiple = "first", relationship = "many-to-many")
+bioact_seq_2 <- left_join(bioact_seq_2, demogdata[variable_list], by = "id")
+bioact_seq_3 <- left_join(bioact_seq_3, demogdata[variable_list], by = "id")
+
+
 
 

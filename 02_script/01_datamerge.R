@@ -16,7 +16,8 @@ rm(list = setdiff(all_variables, dir_variables))
 
 # Key variables
 selected_variables <- c("id", "wave", "sample", "sex_gen", "psex_gen",
-                        "age", "page", "cohort", "cob", "pcob", "mcob", "fcob",
+                        "age", "page", "cohort", "doby_gen", "dobm_gen",
+                        "cob", "pcob", "mcob", "fcob",
                         "migstatus", "relstat", "marstat",
                         "infertile", "pregnant", "nkids",
                         "frt3", "frt5", "frt7", "pid",
@@ -57,7 +58,13 @@ data_list <- lapply(2:11, function(wave_num) {
 # Read and filter datasets for waves 1-14
 filtered_data_list <- lapply(1:14, function(wave_num) {
   data <- readRDS(file.path(data_raw_dir, sprintf("anchor%d.Rds", wave_num)))
-  data <- select(data, selected_variables)
+  
+  # Check the column names in your dataset
+  print(colnames(data))
+  
+  # Use dplyr::select explicitly to avoid conflicts
+  data <- dplyr::select(data, selected_variables)
+  
   return(data)
 })
 
@@ -66,11 +73,6 @@ final_merged_data <- bind_rows(filtered_data_list)
 
 # Save the final merged dataset as an RDS file
 saveRDS(final_merged_data, file.path(data_temp_dir, "01_pairfam1-14.Rds"))
-
-# Clear workspace
-rm(list = ls())
-
-# Move on to data cleaning
 
 # Close the log file
 sink()
