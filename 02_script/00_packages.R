@@ -54,7 +54,11 @@ pacman::p_load(
   TraMineRextras, 
   tsibble, 
   vegan, 
-  WeightedCluster
+  WeightedCluster,
+  foreign,      # New package
+  readstata13,  # New package
+  car,          # New package
+  SDMTools,     # New package
+  prettyR,      # New package
+  devEMF        # New package
 )
-
-

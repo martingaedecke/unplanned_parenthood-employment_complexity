@@ -36,3 +36,43 @@ for (file_path in file_list) {
   # Import the dataset using readRDS or your preferred method
   assign(dataset_name, readRDS(file_path), envir = .GlobalEnv)
 }
+
+### Calculate average complexity over sequence objects
+
+# Create an empty data frame to store results
+results <- data.frame(seq_name = character(),
+                      average_complexity = numeric(),
+                      std_dev_complexity = numeric())
+
+# List of sequence object names
+seq_object_names <- c(
+  "01_seq_1", "01_seq_2", "01_seq_3",
+  "01_seq1_men", "01_seq1_ph1", "01_seq1_ph2", "01_seq1_ph3", "01_seq1_ph4", "01_seq1_women",
+  "01_seq2_men", "01_seq2_ph1", "01_seq2_ph2", "01_seq2_ph3", "01_seq2_ph4", "01_seq2_women",
+  "01_seq3_men", "01_seq3_ph1", "01_seq3_ph2", "01_seq3_ph3", "01_seq3_ph4", "01_seq3_women"
+)
+
+# Loop through each sequence object
+for (seq_name in seq_object_names) {
+  # Get the actual sequence object (replace with your loading code)
+  seq_object <- readRDS(file.path(data_posted_dir, paste0(seq_name, ".Rds")))
+  
+  # Calculate sequence complexity
+  complexity <- seqici(seq_object, with.missing = FALSE, silent = TRUE)
+  
+  # Calculate average complexity
+  avg_complexity <- mean(complexity, na.rm = TRUE)
+  
+  # Calculate standard deviation of complexity
+  std_dev_complexity <- sd(complexity, na.rm = TRUE)
+  
+  # Add the results to the data frame
+  results <- rbind(results, data.frame(seq_name = seq_name, average_complexity = avg_complexity, std_dev_complexity = std_dev_complexity))
+}
+
+# Print the results
+print(results)
+
+# Quarto document)
+results_table <- kable(results, format = "markdown")
+
