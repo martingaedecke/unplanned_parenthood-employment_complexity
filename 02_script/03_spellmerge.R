@@ -315,33 +315,116 @@ for (i in seq_along(bioact_seq_list)) {
 
 }
 
+### Assign labels and colors
+shortlab.empl <-  c("EDU", "FT", "ME", "NE", "PL", "PT", "SE", "UE")
+colorpalette <- divergingx_hcl(8, palette="Spectral")
 
 ### Create sequence objects
 bioact_seq_list <- list(bioact_seq_1, bioact_seq_2, bioact_seq_3)
 seq_list <- list()
 
-### Assign labels and colors
-shortlab.empl <-  c("EDU", "FT", "ME", "NE", "PL", "PT", "SE", "UE")
-
 # Loop through each data frame in the list
 for (i in seq_along(bioact_seq_list)) {
-    # We have to recode the missing values in the dataframes bioact_seq*
-    bioact_seq_list[[i]] <- bioact_seq_list[[i]] %>%
+  # We have to recode the missing values in the dataframes bioact_seq*
+  bioact_seq_list[[i]] <- bioact_seq_list[[i]] %>%
     mutate_all(~ ifelse(. %in% c("*", "%"), NA, .))
   
-    # Assuming you want to use columns 6 through the last column for sequence definition
-    seq_list[[i]] <- seqdef(bioact_seq_list[[i]], 6:ncol(bioact_seq_list[[i]]),
-                          missing = NA, states = shortlab.empl)
+  # sequence definition
+  seq_list[[i]] <- seqdef(bioact_seq_list[[i]], 
+                          6:ncol(bioact_seq_list[[i]]),
+                          missing = NA, states = shortlab.empl, 
+                          cpal = colorpalette,
+                          missing.color = 'darkgrey',
+                          right = "DEL")
   
-    assign(paste0("seq_", i), seq_list[[i]], envir = .GlobalEnv)
+  assign(paste0("seq_", i), seq_list[[i]], envir = .GlobalEnv)
 }
 
 ### Save sequence objects and responding demographic data in datasets
-
-# Save cleaned data
 for (i in 1:3) {
   saveRDS(bioact_seq_list[[i]], file.path(data_posted_dir, paste0("01_bioactdemog_", i, ".Rds")))
   saveRDS(seq_list[[i]], file.path(data_posted_dir, paste0("01_seq_", i, ".Rds")))
+}
+
+## Define different sequence objects (by men and women)
+# List of bioact_seq data frames
+bioact_seq_list <- list(bioact_seq_1, bioact_seq_2, bioact_seq_3)
+
+# Loop through each data frame in the list
+for (i in seq_along(bioact_seq_list)) {
+  # Subset data for men
+  seq_men <- bioact_seq_list[[i]][bioact_seq_list[[i]]$sex_gen == 1, ]
+  seq_men <- seqdef(seq_men, 6:ncol(seq_men),
+                    missing = NA, states = shortlab.empl,
+                    cpal = colorpalette,
+                    missing.color = 'darkgrey',
+                    right = "DEL")
+  
+  # Save the sequence object for men
+  saveRDS(seq_men, file.path(data_posted_dir, paste0("01_seq", i, "_men.Rds")))
+  
+  # Subset data for women
+  seq_women <- bioact_seq_list[[i]][bioact_seq_list[[i]]$sex_gen == 2, ]
+  seq_women <- seqdef(seq_women, 6:ncol(seq_women),
+                      missing = NA, states = shortlab.empl,
+                      cpal = colorpalette,
+                      missing.color = 'darkgrey',
+                      right = "DEL")
+  
+  # Save the sequence object for women
+  saveRDS(seq_women, file.path(data_posted_dir, paste0("01_seq", i, "_women.Rds")))
+}
+
+## Define different sequence objects (by parenthood_status)
+# List of bioact_seq data frames
+bioact_seq_list <- list(bioact_seq_1, bioact_seq_2, bioact_seq_3)
+
+# Loop through each data frame in the list
+for (i in seq_along(bioact_seq_list)) {
+  
+  # Subset data for child1 and ph==1 -> Planned
+  seq_ph1 <- bioact_seq_list[[i]][bioact_seq_list[[i]]$parenthood_status == 1, ]
+  seq_ph1 <- seqdef(seq_ph1, 6:ncol(seq_ph1),
+                    missing = NA, states = shortlab.empl,
+                    cpal = colorpalette,
+                    missing.color = 'darkgrey',
+                    right = "DEL")
+  
+  # Save the sequence object
+  saveRDS(seq_ph1, file.path(data_posted_dir, paste0("01_seq", i, "_ph1.Rds")))
+  
+  # Subset data for child1 and ph==2 -> Intended
+  seq_ph2 <- bioact_seq_list[[i]][bioact_seq_list[[i]]$parenthood_status == 2, ]
+  seq_ph2 <- seqdef(seq_ph2, 6:ncol(seq_ph2),
+                    missing = NA, states = shortlab.empl,
+                    cpal = colorpalette,
+                    missing.color = 'darkgrey',
+                    right = "DEL")
+  
+  # Save the sequence object
+  saveRDS(seq_ph2, file.path(data_posted_dir, paste0("01_seq", i, "_ph2.Rds")))
+  
+  # Subset data for child1 and ph==3 -> Sooner-than-intended
+  seq_ph3 <- bioact_seq_list[[i]][bioact_seq_list[[i]]$parenthood_status == 3, ]
+  seq_ph3 <- seqdef(seq_ph3, 6:ncol(seq_ph3),
+                    missing = NA, states = shortlab.empl,
+                    cpal = colorpalette,
+                    missing.color = 'darkgrey',
+                    right = "DEL")
+  
+  # Save the sequence object
+  saveRDS(seq_ph3, file.path(data_posted_dir, paste0("01_seq", i, "_ph3.Rds")))
+  
+  # Subset data for child1 and ph==4 -> Unintended
+  seq_ph4 <- bioact_seq_list[[i]][bioact_seq_list[[i]]$parenthood_status == 4, ]
+  seq_ph4 <- seqdef(seq_ph4, 6:ncol(seq_ph4),
+                    missing = NA, states = shortlab.empl,
+                    cpal = colorpalette,
+                    missing.color = 'darkgrey',
+                    right = "DEL")
+  
+  # Save the sequence object
+  saveRDS(seq_ph4, file.path(data_posted_dir, paste0("01_seq", i, "_ph4.Rds")))
 }
 
 # Close the log file
