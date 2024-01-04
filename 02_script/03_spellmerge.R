@@ -59,15 +59,15 @@ bioact_tot <- bind_rows(bioact, bioact_rtr)
 
 bioact_tot <- bioact_tot %>%
   mutate(activity = case_when(
-    activity %in% 1:9 ~ "education",
-    activity == 18 ~ "mc_service",
-    activity == 12 ~ "part_time",
-    activity == 10 ~ "full_time",
-    activity == 11 ~ "self_employed",
-    activity == 17 ~ "parental_leave",
-    activity %in% 13:16 ~ "marginal_employed",
-    activity == 19 ~ "unemployed",
-    activity %in% c(20, 21, 22) ~ "not_employed"
+    activity %in% 1:9 ~ "EDU",
+    activity == 18 ~ "MCS",
+    activity == 12 ~ "PT",
+    activity == 10 ~ "FT",
+    activity == 11 ~ "SE",
+    activity == 17 ~ "PL",
+    activity %in% 13:16 ~ "ME",
+    activity == 19 ~ "UE",
+    activity %in% c(20, 21, 22) ~ "NE"
   ))
 
 ### Only keep variables that we need: id, activity, actspell, 
@@ -294,17 +294,25 @@ for (i in seq_along(bioact_seq_list)) {
 
 }
 
+
 ### Create sequence objects
 bioact_seq_list <- list(bioact_seq_1, bioact_seq_2, bioact_seq_3)
 seq_list <- list()
 
+### Assign labels and colors
+shortlab.empl <-  c("EDU", "FT", "ME", "MCS", "NE", "PL", "PT", "SE", "UE")
+
 # Loop through each data frame in the list
 for (i in seq_along(bioact_seq_list)) {
-  # Assuming you want to use columns 6 through the last column for sequence definition
-  seq_list[[i]] <- seqdef(bioact_seq_list[[i]], 6:ncol(bioact_seq_list[[i]]), with.missing=NA,
-                         void="%")
+    # We have to recode the missing values in the dataframes bioact_seq*
+    bioact_seq_list[[i]] <- bioact_seq_list[[i]] %>%
+    mutate_all(~ ifelse(. %in% c("*", "%"), NA, .))
   
-  assign(paste0("seq_", i), seq_list[[i]], envir = .GlobalEnv)
+    # Assuming you want to use columns 6 through the last column for sequence definition
+    seq_list[[i]] <- seqdef(bioact_seq_list[[i]], 6:ncol(bioact_seq_list[[i]]),
+                          missing = NA, states = shortlab.empl)
+  
+    assign(paste0("seq_", i), seq_list[[i]], envir = .GlobalEnv)
 }
 
 
