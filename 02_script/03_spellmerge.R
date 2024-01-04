@@ -16,6 +16,10 @@ dir_variables <- grep("_dir$", all_variables, value = TRUE)
 # Remove variables that don't have the "_dir" suffix
 rm(list = setdiff(all_variables, dir_variables))
 
+# Open the log file
+logdate <- format(Sys.Date(), "%Y%m%d")
+sink(file.path(log_dir, paste0("01_spelldata_", logdate, ".txt")), append = FALSE)
+
 ## Load data from bioact, bioact_rtr and biochild, also demograhic data 
 ## (pairfam 1-14)
 bioact <- read_dta(file.path(data_raw_dir, 
@@ -59,8 +63,8 @@ bioact_tot <- bind_rows(bioact, bioact_rtr)
 
 bioact_tot <- bioact_tot %>%
   mutate(activity = case_when(
-    activity %in% 1:9 ~ "EDU",
-    activity == 18 ~ "MCS",
+    activity %in% c(1:9, 18) ~ "EDU",
+    ## activity == 18 ~ "MCS", for now i included MCS in EDU (04/01/2024)
     activity == 12 ~ "PT",
     activity == 10 ~ "FT",
     activity == 11 ~ "SE",
@@ -69,6 +73,23 @@ bioact_tot <- bioact_tot %>%
     activity == 19 ~ "UE",
     activity %in% c(20, 21, 22) ~ "NE"
   ))
+
+### Check frequencies and percentages
+bioact_tot_summary <- bioact_tot %>%
+  group_by(activity) %>%
+  summarise(
+    count = n(),
+    percentage = n() / nrow(bioact_tot) * 100
+  ) %>%
+  arrange(desc(count))
+
+# Print the summary table
+print(bioact_tot_summary)
+
+### for quarto document:
+# library(knitr)
+# 
+# kable(bioact_tot_summary, format = "markdown", col.names = c("Activity", "Count", "Percentage"), align = "c")
 
 ### Only keep variables that we need: id, activity, actspell, 
 ### actbeg, actend, actcensor
@@ -300,7 +321,7 @@ bioact_seq_list <- list(bioact_seq_1, bioact_seq_2, bioact_seq_3)
 seq_list <- list()
 
 ### Assign labels and colors
-shortlab.empl <-  c("EDU", "FT", "ME", "MCS", "NE", "PL", "PT", "SE", "UE")
+shortlab.empl <-  c("EDU", "FT", "ME", "NE", "PL", "PT", "SE", "UE")
 
 # Loop through each data frame in the list
 for (i in seq_along(bioact_seq_list)) {
@@ -315,5 +336,13 @@ for (i in seq_along(bioact_seq_list)) {
     assign(paste0("seq_", i), seq_list[[i]], envir = .GlobalEnv)
 }
 
+### Save sequence objects and responding demographic data in datasets
 
-seqdplot(seq_3)
+# Save cleaned data
+for (i in 1:3) {
+  saveRDS(bioact_seq_list[[i]], file.path(data_posted_dir, paste0("01_bioactdemog_", i, ".Rds")))
+  saveRDS(seq_list[[i]], file.path(data_posted_dir, paste0("01_seq_", i, ".Rds")))
+}
+
+# Close the log file
+sink()
