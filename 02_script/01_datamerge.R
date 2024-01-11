@@ -21,7 +21,7 @@ selected_variables <- c("id", "wave", "sample", "sex_gen", "psex_gen",
                         "migstatus", "relstat", "marstat",
                         "infertile", "pregnant", "nkids",
                         "frt3", "frt5", "frt7", "pid",
-                        "k1type", "k2type", "k3type")
+                        "k1type", "k2type", "k3type", "d2weight")
 
 # Open the log file
 logdate <- format(Sys.Date(), "%Y%m%d")

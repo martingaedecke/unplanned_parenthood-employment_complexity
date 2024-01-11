@@ -2,7 +2,7 @@
 ### Clear environment
 
 # use (and install if necessary) pacman package 
-# install.packages("pacman")
+#install.packages("pacman")
 library(pacman)
 
 # Nach Updates für Pakete schauen
@@ -32,10 +32,12 @@ pacman::p_load(
   ggseqplot, 
   glue, 
   graphics, 
-  haven, 
+  haven,
+  here,
   Hmisc, 
   kableExtra, 
-  knitr, 
+  knitr,
+  lmtest,
   magrittr, 
   MCMCpack, 
   margins, 
@@ -45,7 +47,8 @@ pacman::p_load(
   psych, 
   reshape2, 
   rio, 
-  RColorBrewer, 
+  RColorBrewer,
+  sandwich,
   sjlabelled, 
   summarytools, 
   tidyr, 
@@ -58,7 +61,6 @@ pacman::p_load(
   foreign,      # New package
   readstata13,  # New package
   car,          # New package
-  SDMTools,     # New package
   prettyR,      # New package
   devEMF        # New package
 )

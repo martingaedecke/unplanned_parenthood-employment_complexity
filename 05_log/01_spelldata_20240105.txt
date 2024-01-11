@@ -1,0 +1,12 @@
+# A tibble: 9 × 3
+  activity count percentage
+  <chr>    <int>      <dbl>
+1 EDU      28131      35.9 
+2 FT       16327      20.8 
+3 ME        8600      11.0 
+4 PT        6659       8.49
+5 UE        6156       7.85
+6 PL        5507       7.02
+7 NE        4182       5.33
+8 SE        1977       2.52
+9 <NA>       862       1.10

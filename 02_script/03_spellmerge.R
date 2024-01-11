@@ -130,6 +130,43 @@ bioact_tot <- bioact_tot[!(bioact_tot$actend < bioact_tot$actbeg),]
 # Set the desired time frame around childbirth seperately for child1, 2 and 3
 months_before_birth <- 12
 
+# ##################################
+# ### Doing it for the whole dataset
+# ##################################
+# 
+# # Left join bioact_tot with biochild based on the id column
+# bioact_all <- left_join(bioact_tot, 
+#                         biochild %>% dplyr::select(id, dobk, 
+#                         parenthood_status, childno), by = "id",
+#                         relationship = "many-to-many")
+# 
+# # Create a new variable indicating the minimum allowed birthdate for each individual
+# bioact_all <- bioact_all %>%
+#   group_by(id) %>%
+#   mutate(min_allowed_birthdate = min(dobk, na.rm = TRUE) - months_before_birth)
+# 
+# # Filter for observations within the specified time frame
+# bioact_all <- bioact_all %>%
+#   filter(actend > min_allowed_birthdate)
+# 
+# ## USE TRAMINER package to create a sequence object
+# bioact_seq_all <- seqformat(bioact_all,
+#                                     from = "SPELL", to = "STS",
+#                                     id = "id", 
+#                                     begin = "actbeg", end = "actend", 
+#                                     status = "activity",
+#                                     covar = c("id", "dobk"),
+#                                     process = FALSE,
+#                                     overwrite = TRUE,
+#                                     limit = 21) %>%
+#   seqdef()
+# 
+# # Optionally, assign the bioact datasets to the list
+# assign(paste0("bioact_seq_all"), bioact_seq_all, envir = .GlobalEnv)
+# 
+# 
+# 
+
 # Create an empty list to store filtered datasets
 filtered_datasets <- list()
 
@@ -338,7 +375,7 @@ for (i in seq_along(bioact_seq_list)) {
   
   # sequence definition
   seq_list[[i]] <- seqdef(bioact_seq_list[[i]], 
-                          6:ncol(bioact_seq_list[[i]]),
+                          6:78,
                           missing = NA, states = shortlab.empl, 
                           cpal = colorpalette,
                           missing.color = 'darkgrey',
@@ -351,151 +388,6 @@ for (i in seq_along(bioact_seq_list)) {
 for (i in 1:3) {
   saveRDS(bioact_seq_list[[i]], file.path(data_posted_dir, paste0("01_bioactdemog_", i, ".Rds")))
   saveRDS(seq_list[[i]], file.path(data_posted_dir, paste0("01_seq_", i, ".Rds")))
-}
-
-## Define different sequence objects (by men and women)
-# List of bioact_seq data frames
-bioact_seq_list <- list(bioact_seq_1, bioact_seq_2, bioact_seq_3)
-
-# Loop through each data frame in the list
-for (i in seq_along(bioact_seq_list)) {
-  # Subset data for men
-  seq_men <- bioact_seq_list[[i]][bioact_seq_list[[i]]$sex_gen == 1, ]
-  seq_men <- seqdef(seq_men, 6:ncol(seq_men),
-                    missing = NA, states = shortlab.empl,
-                    cpal = colorpalette,
-                    missing.color = 'darkgrey',
-                    right = "DEL")
-  
-  # Save the sequence object for men
-  saveRDS(seq_men, file.path(data_posted_dir, paste0("01_seq", i, "_men.Rds")))
-  
-  # Subset data for women
-  seq_women <- bioact_seq_list[[i]][bioact_seq_list[[i]]$sex_gen == 2, ]
-  seq_women <- seqdef(seq_women, 6:ncol(seq_women),
-                      missing = NA, states = shortlab.empl,
-                      cpal = colorpalette,
-                      missing.color = 'darkgrey',
-                      right = "DEL")
-  
-  # Save the sequence object for women
-  saveRDS(seq_women, file.path(data_posted_dir, paste0("01_seq", i, "_women.Rds")))
-
-  # Assign the sequence object to the global environment
-  assign(paste0("seq_", i, "_men"), seq_men, envir = .GlobalEnv)
-  assign(paste0("seq_", i, "_women"), seq_women, envir = .GlobalEnv)
-}
-
-## Define different sequence objects (by parenthood_status)
-# List of bioact_seq data frames
-bioact_seq_list <- list(bioact_seq_1, bioact_seq_2, bioact_seq_3)
-
-# Loop through each data frame in the list
-for (i in seq_along(bioact_seq_list)) {
-  
-  # Subset data for child1 and ph==1 -> Planned
-  seq_ph1 <- bioact_seq_list[[i]][bioact_seq_list[[i]]$parenthood_status == 1, ]
-  seq_ph1 <- seqdef(seq_ph1, 6:ncol(seq_ph1),
-                    missing = NA, states = shortlab.empl,
-                    cpal = colorpalette,
-                    missing.color = 'darkgrey',
-                    right = "DEL")
-  
-  # Save the sequence object
-  saveRDS(seq_ph1, file.path(data_posted_dir, paste0("01_seq", i, "_ph1.Rds")))
-  
-  # Subset data for child1 and ph==2 -> Intended
-  seq_ph2 <- bioact_seq_list[[i]][bioact_seq_list[[i]]$parenthood_status == 2, ]
-  seq_ph2 <- seqdef(seq_ph2, 6:ncol(seq_ph2),
-                    missing = NA, states = shortlab.empl,
-                    cpal = colorpalette,
-                    missing.color = 'darkgrey',
-                    right = "DEL")
-  
-  # Save the sequence object
-  saveRDS(seq_ph2, file.path(data_posted_dir, paste0("01_seq", i, "_ph2.Rds")))
-  
-  # Subset data for child1 and ph==3 -> Sooner-than-intended
-  seq_ph3 <- bioact_seq_list[[i]][bioact_seq_list[[i]]$parenthood_status == 3, ]
-  seq_ph3 <- seqdef(seq_ph3, 6:ncol(seq_ph3),
-                    missing = NA, states = shortlab.empl,
-                    cpal = colorpalette,
-                    missing.color = 'darkgrey',
-                    right = "DEL")
-  
-  # Save the sequence object
-  saveRDS(seq_ph3, file.path(data_posted_dir, paste0("01_seq", i, "_ph3.Rds")))
-  
-  # Subset data for child1 and ph==4 -> Unintended
-  seq_ph4 <- bioact_seq_list[[i]][bioact_seq_list[[i]]$parenthood_status == 4, ]
-  seq_ph4 <- seqdef(seq_ph4, 6:ncol(seq_ph4),
-                    missing = NA, states = shortlab.empl,
-                    cpal = colorpalette,
-                    missing.color = 'darkgrey',
-                    right = "DEL")
-  
-  # Save the sequence object
-  saveRDS(seq_ph4, file.path(data_posted_dir, paste0("01_seq", i, "_ph4.Rds")))
-
-  # Assign the sequence object to the global environment
-  assign(paste0("seq_", i,"_ph1"), seq_ph1, envir = .GlobalEnv)
-  assign(paste0("seq_", i,"_ph2"), seq_ph2, envir = .GlobalEnv)
-  assign(paste0("seq_", i,"_ph3"), seq_ph3, envir = .GlobalEnv)
-  assign(paste0("seq_", i,"_ph4"), seq_ph4, envir = .GlobalEnv)
-  }
-
-## Define different sequence objects (by parenthood_status, gender)
-# List of bioact_seq data frames
-bioact_seq_list <- list(bioact_seq_1, bioact_seq_2, bioact_seq_3)
-
-# List of parenthood statuses
-ph_statuses <- c(1, 2, 3, 4)  # Assuming these are the numeric codes for "planned", "intended", "sooner-than-intended", "unintended"
-
-# Loop through each data frame in the list
-for (i in seq_along(bioact_seq_list)) {
-  
-  # Loop through each parenthood status
-  for (ph_status in ph_statuses) {
-    
-    # Define the filter conditions based on parenthood status
-    filter_condition <- bioact_seq_list[[i]]$parenthood_status == ph_status
-    
-    # Subset data for child1 and specific parenthood status & men
-    seq_ph_men <- bioact_seq_list[[i]][filter_condition & bioact_seq_list[[i]]$sex_gen == 1, ]
-    
-    if (nrow(seq_ph_men) > 0) {
-      # Create a sequence object
-      seq_ph_men <- seqdef(seq_ph_men, 6:ncol(seq_ph_men),
-                           missing = NA, states = shortlab.empl,
-                           cpal = colorpalette,
-                           missing.color = 'darkgrey',
-                           right = "DEL")
-      
-      # Save the sequence object
-      saveRDS(seq_ph_men, file.path(data_posted_dir, paste0("01_seq", i, "_", ph_status, "_men.Rds")))
-      
-      # Assign to global environment
-      assign(paste0("seq_", i, "_", ph_status, "_men"), seq_ph_men, envir = .GlobalEnv)
-    }
-    
-    # Subset data for child1 and specific parenthood status & women
-    seq_ph_women <- bioact_seq_list[[i]][filter_condition & bioact_seq_list[[i]]$sex_gen == 2, ]
-    
-    if (nrow(seq_ph_women) > 0) {
-      # Create a sequence object
-      seq_ph_women <- seqdef(seq_ph_women, 6:ncol(seq_ph_women),
-                             missing = NA, states = shortlab.empl,
-                             cpal = colorpalette,
-                             missing.color = 'darkgrey',
-                             right = "DEL")
-      
-      # Save the sequence object
-      saveRDS(seq_ph_women, file.path(data_posted_dir, paste0("01_seq", i, "_", ph_status, "_women.Rds")))
-      
-      # Assign to global environment
-      assign(paste0("seq_", i, "_", ph_status, "_women"), seq_ph_women, envir = .GlobalEnv)
-    }
-  }
 }
 
 # Close the log file
