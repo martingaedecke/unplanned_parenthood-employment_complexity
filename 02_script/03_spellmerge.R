@@ -63,15 +63,15 @@ bioact_tot <- bind_rows(bioact, bioact_rtr)
 
 bioact_tot <- bioact_tot %>%
   mutate(activity = case_when(
-    activity %in% c(1:9, 18) ~ "EDU",
+    activity %in% c(1:9, 18) ~ "Education",
     ## activity == 18 ~ "MCS", for now i included MCS in EDU (04/01/2024)
-    activity == 12 ~ "PT",
-    activity == 10 ~ "FT",
-    activity == 11 ~ "SE",
-    activity == 17 ~ "PL",
-    activity %in% 13:16 ~ "ME",
-    activity == 19 ~ "UE",
-    activity %in% c(20, 21, 22) ~ "NE"
+    activity == 12 ~ "Part-Time",
+    activity == 10 ~ "Full-Time",
+    activity == 11 ~ "Self-Employed",
+    activity == 17 ~ "Parental-Leave",
+    activity %in% 13:16 ~ "Marginally-Employmend",
+    activity == 19 ~ "Unemployed",
+    activity %in% c(20, 21, 22) ~ "Not-Employed"
   ))
 
 ### Check frequencies and percentages
@@ -353,7 +353,9 @@ for (i in seq_along(bioact_seq_list)) {
 }
 
 ### Assign labels and colors
-shortlab.empl <-  c("EDU", "FT", "ME", "NE", "PL", "PT", "SE", "UE")
+shortlab.empl <-  c("Education", "Full-Time", "Marginally-Employed", 
+                    "Not-Employed", "Parental-Leave", "Part-Time", 
+                    "Self-Employed", "Unemployed")
 colorpalette <- divergingx_hcl(8, palette="Spectral")
 
 ### Create sequence objects

@@ -120,10 +120,7 @@ data_temp$wave <- as.numeric(data_temp$wave)
 data_temp_ts <- data_temp %>%
   as_tsibble(key = id, index = wave)
 
-# install.packages("devtools")
-devtools::install_github("NickCH-K/pmdplyr")
-library(pmdplyr)
-
+## Panel fill
 data_temp <- panel_fill(data_temp_ts, .set_NA = TRUE,
                                   .i = id, .t = wave)
 

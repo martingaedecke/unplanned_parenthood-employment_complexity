@@ -2,7 +2,8 @@
 ### Clear environment
 
 # use (and install if necessary) pacman package 
-#install.packages("pacman")
+# install.packages("pacman")
+# devtools::install_github("NickCH-K/pmdplyr")
 library(pacman)
 
 # Nach Updates für Pakete schauen
@@ -43,7 +44,8 @@ pacman::p_load(
   margins, 
   nnet, 
   patchwork, 
-  plotrix, 
+  plotrix,
+  pmdplyr,
   psych, 
   reshape2, 
   rio, 
@@ -56,7 +58,8 @@ pacman::p_load(
   TraMineR, 
   TraMineRextras, 
   tsibble, 
-  vegan, 
+  vegan,
+  viridis,
   WeightedCluster,
   foreign,      # New package
   readstata13,  # New package

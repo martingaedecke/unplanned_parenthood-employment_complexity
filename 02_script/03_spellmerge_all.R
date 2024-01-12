@@ -244,7 +244,8 @@ variables_to_keep <- c("id", "dobk", "parenthood_status", "sex_gen", "doby_gen",
   
 
 ### Assign labels and colors
-shortlab.empl <-  c("EDU", "FT", "ME", "NE", "PL", "PT", "SE", "UE")
+shortlab.empl <-  c("Education", "Full-Time", "Marginally-Employed", "Not-Employed", 
+                    "Parental-Leave", "Part-Time", "Self-Employed", "Unemployed")
 colorpalette <- divergingx_hcl(8, palette="Spectral")
 
 ### Create sequence object

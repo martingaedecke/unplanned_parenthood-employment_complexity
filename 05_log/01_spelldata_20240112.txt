@@ -1,0 +1,12 @@
+# A tibble: 9 × 3
+  activity              count percentage
+  <chr>                 <int>      <dbl>
+1 Education             28131      35.9 
+2 Full-Time             16327      20.8 
+3 Marginally-Employmend  8600      11.0 
+4 Part-Time              6659       8.49
+5 Unemployed             6156       7.85
+6 Parental-Leave         5507       7.02
+7 Not-Employed           4182       5.33
+8 Self-Employed          1977       2.52
+9 <NA>                    862       1.10

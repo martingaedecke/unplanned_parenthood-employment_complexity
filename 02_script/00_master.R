@@ -1,15 +1,10 @@
 ### This master script has the purpose to update and load packages and
 ### set working directories as well as executing seperate do-files
 
-# setwd("C:/Users/maddinjedekhe/Documents/OneDrive - Nexus365/00_DPhil-Sociology/01_projects/Unplanned parenthood and employment complexity")
 
-setwd("C:/Unplanned parenthood and employment complexity")
+setwd("/Users/martingaedecke/Library/CloudStorage/OneDrive-Nexus365/00_DPhil-Sociology/01_projects/Unplanned parenthood and employment complexity")
 
-### Folder setup
-#source('00_projectsetup.R')
-
-# install.packages("here")
-project_dir <- "C:/Unplanned parenthood and employment complexity"
+project_dir <- getwd()
 
 ## Please adjust the data directory to your needs
 data_dir <- file.path(project_dir, "01_data")
