@@ -122,40 +122,43 @@ ggsave(file.path(graph_dir, paste0("fig2",".png")),
          width = 8, height = 6, units = "in",
          plot = last_plot(), dpi = 600)  
 
-# ### Figure 3
-# # Convert parenthood_status to a factor for better plotting
-# complexity_seq_1$parenthood_status <- factor(complexity_seq_1$parenthood_status)
-# 
-# # Calculate group averages and confidence intervals
-# summary_stats <- complexity_seq_1 %>%
-#   group_by(time, parenthood_status) %>%
-#   summarise(
-#     mean_complexity = mean(C),
-#     ci_lower = mean_complexity - 1.96 * sd(C) / sqrt(n()),
-#     ci_upper = mean_complexity + 1.96 * sd(C) / sqrt(n()))
-# 
-# # Modify the color scheme
-# color_scheme <- scales::viridis_pal(option = "D")(4)
-# 
-# # Plot the group averages and confidence intervals
-# ggplot(summary_stats, aes(x = time, y = mean_complexity, color = parenthood_status, group = parenthood_status)) +
-#   geom_line(size = 1) +
-#   geom_ribbon(aes(ymin = ci_lower, ymax = ci_upper), linetype = "dashed", alpha = 0, fill = NA) +
-#   geom_vline(xintercept = 0, color = "red", linetype = "solid") +  # Add red line at t = 0
-#   scale_color_manual(values = color_scheme) +
-#   labs(title = "",
-#        x = "Months Since Parenthood",  # Adjust x-axis title
-#        y = "Mean Complexity") +
-#   scale_x_continuous(breaks = seq(-12, 60, by = 6)) +  # Adjust x-axis labels
-#   theme_minimal() +
-#   theme(legend.title = element_text(face = "bold"), legend.position = "bottom", legend.box = "horizontal",
-#         legend.direction = "horizontal", legend.justification = "center",
-#         legend.spacing.x = unit(0.1, "cm"))
-# 
-# # Save the plot as a PNG file
-# ggsave(file.path(graph_dir, paste0("fig3",".png")), 
-#        width = 8, height = 6, units = "in",
-#        plot = last_plot(), dpi = 600)  
+### Figure 3
+# Convert parenthood_status to a factor for better plotting
+complexity_seq_1$parenthood_status <- factor(complexity_seq_1$parenthood_status)
+
+# Calculate group averages and confidence intervals
+summary_stats <- complexity_seq_1 %>%
+  group_by(time, parenthood_status) %>%
+  summarise(
+    mean_complexity = mean(C),
+    ci_lower = mean_complexity - 1.96 * sd(C) / sqrt(n()),
+    ci_upper = mean_complexity + 1.96 * sd(C) / sqrt(n()))
+
+# Modify the color scheme
+color_scheme <- scales::viridis_pal(option = "D")(4)
+color_scheme <- scales::viridis_pal(option = "D")(4)
+custom_labels <- c("Planned", "Intended", "Sooner-than-intended", "Unintended")
+
+# Plot the group averages and confidence intervals
+ggplot(summary_stats, aes(x = time, y = mean_complexity, color = parenthood_status, group = parenthood_status)) +
+  geom_line(size = 1) +
+  geom_ribbon(aes(ymin = ci_lower, ymax = ci_upper), linetype = "dashed", alpha = 0, fill = NA) +
+  geom_vline(xintercept = 0, color = "red", linetype = "solid") +
+  scale_color_manual(values = color_scheme, labels = custom_labels) +  # Specify custom labels
+  labs(title = "",
+       x = "Months Since Motherhood",
+       y = "Mean Complexity") +
+  scale_x_continuous(breaks = seq(-12, 60, by = 6)) +
+  theme_minimal() +
+  theme(legend.title = element_text(face = "bold"), legend.position = "bottom", legend.box = "horizontal",
+        legend.direction = "horizontal", legend.justification = "center",
+        legend.spacing.x = unit(0.1, "cm")) +
+  scale_fill_viridis(discrete = TRUE, name = "Parenthood Status")
+
+# Save the plot as a PNG file
+ggsave(file.path(graph_dir, paste0("fig99",".png")),
+       width = 8, height = 6, units = "in",
+       plot = last_plot(), dpi = 600)
 
 ### Figure 4
 
@@ -172,7 +175,8 @@ png(file.path(graph_dir, "fig4.png"), width = 8, height = 6, units = "in",
     res=600)
 
 # Create the sequence plot
-seqdplot(seq_1, group = demog_seq_1$sex_gen, border = NA)
+seqdplot(seq_1, group = demog_seq_1$sex_gen, border = NA,
+         xlab = "month since parenthood", with.legend=FALSE)
 
 # Close the PNG device
 dev.off()
@@ -202,7 +206,7 @@ png(file.path(graph_dir, "fig5.png"), width = 8, height = 6, units = "in",
   seqdplot(seq_1_men, group = demog_seq_1_men$parenthood_status, border = NA)
 dev.off()
 
-# Create sequence distribution plot for men with "planned" parenthood_status
+# Create sequence distribution plot for Women with "planned" parenthood_status
 png(file.path(graph_dir, "fig6.png"), width = 8, height = 6, units = "in",
     res=600)
 seqdplot(seq_1_women, group = demog_seq_1_women$parenthood_status, border = NA)
@@ -225,11 +229,13 @@ demog_seq_1_women <- demog_seq_1_comb %>% filter(demog_seq_1$sex_gen == "Women")
 # Create sequence distribution plot for men with "planned" parenthood_status
 png(file.path(graph_dir, "fig7.png"), width = 8, height = 6, units = "in",
     res=600)
-seqdplot(seq_1_men, group = demog_seq_1_men$parenthood_status, border = NA)
+seqdplot(seq_1_men, group = demog_seq_1_men$parenthood_status, border = NA, 
+         xlab = "month since fatherhood")
 dev.off()
 
-# Create sequence distribution plot for men with "planned" parenthood_status
-png(file.path(graph_dir, "fig8.png"), width = 8, height = 6, units = "in",
+# Create sequence distribution plot for WOmen with "planned" parenthood_status
+png(file.path(graph_dir, "fig4.png"), width = 8, height = 6, units = "in",
     res=600)
-seqdplot(seq_1_women, group = demog_seq_1_women$parenthood_status, border = NA)
+seqdplot(seq_1_women, group = demog_seq_1_women$parenthood_status, border = NA,
+         xlab = "month since motherrhood", with.legend = FALSE)
 dev.off()
