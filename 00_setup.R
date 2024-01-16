@@ -7,7 +7,7 @@
 # include libaries
 
 ### create folder structure
-setwd("C:/Users/maddinjedekhe/Documents/OneDrive - Nexus365/00_DPhil-Sociology/01_projects/Unplanned parenthood and employment complexity")
+setwd("/Users/martingaedecke/Library/CloudStorage/OneDrive-Nexus365/00_DPhil-Sociology/01_projects/unplanned_parenthood-employment_complexity")
 
 # 02_script
 ifelse(!dir.exists("02_script"), dir.create("02_script"), "Folder exists already")
